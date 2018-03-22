@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxATK.hpp"
 #include "ofxMidi.h"
+#include "ofXGui.h"
 
 #define SAMPLE_LENGTH 441000  // ten seconds
 
@@ -25,32 +26,36 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-//        ofSoundStream soundStreamInput;
     
     void exit();
-//    void audioIn(float * input, int bufferSize, int nChannels);
     void audioOut( float* buffer, int bufferSize, int nChannels);
     void newMidiMessage(ofxMidiMessage& message);
+    
     ofxMidiIn midiIn;
     WTSine* modulator;
+    Reverb* reverb;
 
     WTTriangle triangle;
+    WTSawtooth sawtooth;
     WTSquare square;
     CTEnvelope envelope;
     int mostRecentNote;
     
     SoundFile* soundFile;
     SoundPlayer* player;
+    Recorder* recorder;
     SoundFile* soundFile2;
     SoundPlayer* player2;
     
     float playbackSpeed;
     
-//    float recording[SAMPLE_LENGTH];
-//    int recordingBufferOffset;
-//    int playingBufferOffset;
-//
-//    bool isRecording;
+    int wave;
     bool isPlaying;
-
+    
+    //gui
+    ofxPanel gui;
+    ofxFloatSlider absorptionFreq;
+    ofxFloatSlider absorption;
+    ofxFloatSlider dryWet;
+    ofxFloatSlider preDelay;
 };
