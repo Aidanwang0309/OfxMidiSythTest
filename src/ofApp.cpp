@@ -4,7 +4,9 @@
 void ofApp::setup(){
     
     soundFile = new SoundFile(ofToDataPath("1.wav"));
+    soundFile2 = new SoundFile(ofToDataPath("2.wav"));
     player = new SoundPlayer(soundFile, 0, true);
+    player2 = new SoundPlayer(soundFile2, 0, true);
     
     playbackSpeed = 1.0;
     player->setSpeed(playbackSpeed);
@@ -34,7 +36,8 @@ void ofApp::draw(){
     
     soundFile->draw(20, 20, 400, 180);
     player->draw();//draw the currentPosition
-    
+    player2->draw();//draw the currentPosition
+
     
 }
 
@@ -55,9 +58,10 @@ void ofApp::audioOut(float* buffer, int bufferSize, int nChannels){
         for(int i = 0; i < bufferSize; i++){
             
             player->process();
+            player2->process();
             triangle.process();envelope.process();
             //progress the oscillator and env by one sample
-            float currentSample = triangle.getSample() * envelope.getValue()+player->getSample();
+            float currentSample = triangle.getSample() * envelope.getValue()+player->getSample()+ player2->getSample();
             //        +recording[i + playingBufferOffset*bufferSize];
             
             buffer[i*nChannels+0] = currentSample;
@@ -102,7 +106,9 @@ void ofApp::keyPressed(int key){
             break;
         case ' ':
             player->setLocation(0);
+            player2->setLocation(0);
             player->play();
+            player2->play();
             isPlaying = !isPlaying;
             break;
 //        case 'r':

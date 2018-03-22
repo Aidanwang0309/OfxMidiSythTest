@@ -41,6 +41,9 @@ class ofApp : public ofBaseApp, public ofxMidiListener{
     
     SoundFile* soundFile;
     SoundPlayer* player;
+    SoundFile* soundFile2;
+    SoundPlayer* player2;
+    
     float playbackSpeed;
     
 //    float recording[SAMPLE_LENGTH];
